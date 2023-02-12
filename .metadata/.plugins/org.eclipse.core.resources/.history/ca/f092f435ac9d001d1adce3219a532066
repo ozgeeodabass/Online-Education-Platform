@@ -1,0 +1,8 @@
+package ceng.gradProject.entities.concretes;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Media {
+
+}

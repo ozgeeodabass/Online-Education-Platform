@@ -1,0 +1,29 @@
+package ceng.gradProject.webApi.controllers;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import ceng.gradProject.business.abstracts.InstructorService;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.entities.concretes.Instructor;
+
+@RestController
+@RequestMapping("/api/instructors")
+public class InstructorController {
+	
+	private InstructorService instService;
+
+	public InstructorController(InstructorService instService) {
+		super();
+		this.instService = instService;
+	}
+	
+	public DataResult<Instructor> getByName(String fName, String lName) {
+		return this.instService.getByName(fName, lName);
+	}
+	
+	public DataResult<List<Instructor>> getAll() {
+		return this.instService.getAll()
+	}
+}

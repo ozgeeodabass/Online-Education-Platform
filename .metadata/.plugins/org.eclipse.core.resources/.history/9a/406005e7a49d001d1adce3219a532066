@@ -1,0 +1,17 @@
+package ceng.gradProject.dataAccess.abstracts;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import ceng.gradProject.entities.concretes.Instructor;
+import ceng.gradProject.entities.concretes.User;
+
+public interface UserRepository extends JpaRepository<User, Integer> {
+
+	@Query(("From User where userFirstName=:fName and userLastName=:lName"))
+	User getByName(String fName, String lName);
+	
+	List<User> getByDepartment_DeptId(int id);
+}

@@ -1,0 +1,11 @@
+package ceng.gradProject.business.abstracts;
+
+import java.util.List;
+
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.entities.concretes.Department;
+
+public interface DepartmentService {
+
+	DataResult<Department> getByDeptName(String name);
+}

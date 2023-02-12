@@ -1,0 +1,133 @@
+package ceng.gradProject.business.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import ceng.gradProject.business.abstracts.CourseService;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.core.utilities.results.Result;
+import ceng.gradProject.core.utilities.results.SuccessDataResult;
+import ceng.gradProject.core.utilities.results.SuccessResult;
+import ceng.gradProject.dataAccess.abstracts.CourseRepository;
+import ceng.gradProject.entities.concretes.Course;
+
+@Service
+public class CourseManager implements CourseService {
+
+	private CourseRepository courseRepository;
+	
+	
+	public CourseManager(CourseRepository courseRepository) {
+		super();
+		this.courseRepository = courseRepository;
+	}
+
+	@Override
+	public DataResult<List<Course>> getAll() {
+		
+		List<Course> courses = courseRepository.findAll();
+		List<Course> coursesResponse = new ArrayList<Course>();
+		
+		for (Course course : courses) {
+			Course responseItem = new Course();
+			responseItem.setCourseId(course.getCourseId());
+			responseItem.setCourseTitle(course.getCourseTitle());
+			responseItem.setCourseDescription(course.getCourseDescription());
+			
+			coursesResponse.add(responseItem);
+			
+		}
+		return new SuccessDataResult<List<Course>>(coursesResponse,"Kurslar Listelendi");
+	}
+
+	@Override
+	public Result add(Course course) {
+		course.setCourseTitle(course.getCourseTitle());
+		course.setCourseDescription(course.getCourseDescription());
+		
+		this.courseRepository.save(course);
+		return new SuccessResult("Kurs Eklendi");
+		
+	}
+
+	@Override
+	public DataResult<Course> getByCourseTitle(String title) {
+		List<Course> courses = courseRepository.getAllByCourseTitle(title).;
+		List<Course> coursesResponse = new ArrayList<Course>();
+		
+		for (Course course : courses) {
+			Course responseItem = new Course();
+			responseItem.setCourseId(course.getCourseId());
+			responseItem.setCourseTitle(course.getCourseTitle());
+			responseItem.setCourseDescription(course.getCourseDescription());
+			
+			coursesResponse.add(responseItem);
+			
+		}
+		return new SuccessDataResult<List<Course>>(coursesResponse,"Kurslar Listelendi");
+	}
+
+	@Override
+	public DataResult<List<Course>> getBySubject(int id) {
+		return new SuccessDataResult<List<Course>>
+		(this.courseRepository.getBySubject_SubjectId(id), "Kurslar Listelendi");
+	}
+
+	@Override
+	public DataResult<List<Course>> getByCourseTitleContains(String name) {
+		return new SuccessDataResult<List<Course>>
+		(this.courseRepository.getByCourseTitleContains(name), "Kurslar Listelendi");
+	}
+
+	@Override
+	public DataResult<List<Course>> getByInstructor(int id) {
+		return new SuccessDataResult<List<Course>>
+		(this.courseRepository.getByInstructor_InstrId(id), "Kurslar Listelendi");
+	}
+
+	@Override
+	public DataResult<List<Course>> getByUsers(int id) {
+		return new SuccessDataResult<List<Course>>
+		(this.courseRepository.getByUsers_UserId(id), "Kurslar Listelendi");
+	}
+
+	@Override
+	public DataResult<List<Course>> getByDepartment(int id) {
+		return new SuccessDataResult<List<Course>>
+		(this.courseRepository.getByDepartment_DeptId(id), "Kurslar Listelendi");
+	}
+
+	@Override
+	public DataResult<List<Course>> getAllByPage(int pageNo, int pageSize) {
+		
+		Pageable pageable = Pageable.ofSize(pageSize);
+		
+		return new SuccessDataResult<List<Course>>
+		(this.courseRepository.findAll(pageable).getContent(), "Kurslar Listelendi");
+	}
+
+	@Override
+	public Result delete(Course course) {
+		this.courseRepository.delete(course);
+		return new SuccessResult("Kurs Silindi");
+		
+	}
+
+	@Override
+	public DataResult<Course> update(Course course) {
+		int id = course.getCourseId();
+		Course courseExist = this.courseRepository.findById(id).get();
+		courseExist.setCourseTitle(course.getCourseTitle());
+		courseExist.setCourseDescription(course.getCourseDescription());
+		courseExist.setDepartment(course.getDepartment());
+		courseExist.setInstructor(course.getInstructor());
+		courseExist.setSubject(course.getSubject());
+		
+		return new SuccessDataResult<Course>(course, "Kurs Güncellendi");
+	}
+
+
+}

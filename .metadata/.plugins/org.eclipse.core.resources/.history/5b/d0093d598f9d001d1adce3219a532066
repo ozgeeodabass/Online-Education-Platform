@@ -1,0 +1,35 @@
+package ceng.gradProject.business.concretes;
+
+import java.util.List;
+
+import ceng.gradProject.business.abstracts.DepartmentService;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.core.utilities.results.SuccessDataResult;
+import ceng.gradProject.dataAccess.abstracts.DepartmentRepository;
+import ceng.gradProject.entities.concretes.Course;
+import ceng.gradProject.entities.concretes.Department;
+
+public class DepartmentManager implements DepartmentService {
+	
+	private DepartmentRepository departmentRepository;
+	
+	
+	public DepartmentManager(DepartmentRepository departmentRepository) {
+		super();
+		this.departmentRepository = departmentRepository;
+	}
+
+	@Override
+	public DataResult<Department> getByDeptName(String name) {
+		Department dept = departmentRepository.getByDeptName(name);
+		Department deptResponse = new Department();
+	
+			deptResponse.setDeptId(dept.getDeptId());
+			courseResponse.setCourseTitle(course.getCourseTitle());
+			courseResponse.setCourseDescription(course.getCourseDescription());
+			
+
+		return new SuccessDataResult<Course>(courseResponse,"Kurslar Listelendi");
+	}
+
+}

@@ -1,0 +1,31 @@
+package ceng.gradProject.webApi.controllers;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ceng.gradProject.business.abstracts.UserService;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.entities.concretes.User;
+
+@RestController
+@RequestMapping("/api/users")
+public class UsersController {
+	
+	private UserService userService;
+
+	public UsersController(UserService userService) {
+		super();
+		this.userService = userService;
+	}
+	
+	public DataResult<User> getByName(String fName, String lName) {
+		return this.userService.getByName(fName, lName);
+	}
+	
+	public DataResult<List<User>> getAll() {
+		return this.userService.getAll()
+	}
+
+}

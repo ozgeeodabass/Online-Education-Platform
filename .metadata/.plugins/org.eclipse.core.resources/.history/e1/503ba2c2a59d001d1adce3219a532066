@@ -1,0 +1,81 @@
+package ceng.gradProject.business.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import ceng.gradProject.business.abstracts.UserService;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.core.utilities.results.Result;
+import ceng.gradProject.core.utilities.results.SuccessDataResult;
+import ceng.gradProject.dataAccess.abstracts.UserRepository;
+import ceng.gradProject.entities.concretes.Instructor;
+import ceng.gradProject.entities.concretes.User;
+
+@Service
+public class UserManager implements UserService {
+	
+	private UserRepository userRepository;
+
+	public UserManager(UserRepository userRepository) {
+		super();
+		this.userRepository = userRepository;
+	}
+
+	@Override
+	public DataResult<User> getByName(String fName, String lName) {
+		User user = userRepository.getByName(fName, lName);
+		User userResponse = new User();
+	
+		userResponse.setUserId(user.getUserId());
+		userResponse.setUserFirstName(user.getUserFirstName());
+		userResponse.setUserLastName(user.getUserLastName());
+		userResponse.setDepartment(user.getDepartment());
+			
+
+		return new SuccessDataResult<User>(userResponse,"Kullanıcılar Listelendi");
+	}
+
+	@Override
+	public DataResult<List<User>> getAll() {
+		List<User> users = userRepository.findAll();
+		List<User> usersResponse = new ArrayList<User>();
+		
+		for (User user : users) {
+			User responseItem = new User();
+			responseItem.setUserId(user.getUserId());
+			responseItem.setUserFirstName(user.getUserFirstName());
+			responseItem.setUserLastName(user.getUserLastName());
+			
+			usersResponse.add(responseItem);
+			
+		}
+		return new SuccessDataResult<List<User>>(intrsResponse,"Eğitmenler Listelendi");
+	}
+
+	@Override
+	public Result add(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Result delete(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataResult<List<User>> getByDepartment(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataResult<User> update(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

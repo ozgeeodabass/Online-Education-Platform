@@ -1,0 +1,5 @@
+package ceng.gradProject.business.abstracts;
+
+public interface DepartmentService {
+
+}

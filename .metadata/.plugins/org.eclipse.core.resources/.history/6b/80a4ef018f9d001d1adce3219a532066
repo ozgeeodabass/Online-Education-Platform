@@ -1,0 +1,25 @@
+package ceng.gradProject.business.concretes;
+
+import java.util.List;
+
+import ceng.gradProject.business.abstracts.DepartmentService;
+import ceng.gradProject.dataAccess.abstracts.DepartmentRepository;
+import ceng.gradProject.entities.concretes.Department;
+
+public class DepartmentManager implements DepartmentService {
+	
+	private DepartmentRepository departmentRepository;
+	
+	
+	public DepartmentManager(DepartmentRepository departmentRepository) {
+		super();
+		this.departmentRepository = departmentRepository;
+	}
+
+	@Override
+	public List<Department> getByDeptName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

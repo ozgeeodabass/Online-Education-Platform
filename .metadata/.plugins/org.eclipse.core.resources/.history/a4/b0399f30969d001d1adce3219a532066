@@ -1,0 +1,13 @@
+package ceng.gradProject.dataAccess.abstracts;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import ceng.gradProject.entities.concretes.Department;
+import ceng.gradProject.entities.concretes.Instructor;
+
+public interface InstructorRepository extends JpaRepository<Instructor, Integer> {
+
+	List<Instructor> getByDeptartment_DeptId(int id);
+}

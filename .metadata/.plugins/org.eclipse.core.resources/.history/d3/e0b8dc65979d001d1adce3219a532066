@@ -1,0 +1,68 @@
+package ceng.gradProject.business.concretes;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import ceng.gradProject.business.abstracts.InstructorService;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.core.utilities.results.Result;
+import ceng.gradProject.core.utilities.results.SuccessDataResult;
+import ceng.gradProject.dataAccess.abstracts.InstructorRepository;
+import ceng.gradProject.entities.concretes.Course;
+import ceng.gradProject.entities.concretes.Instructor;
+
+@Service
+public class InstructorManager implements InstructorService {
+	
+	private InstructorRepository instructorRepository;
+
+	public InstructorManager(InstructorRepository instructorRepository) {
+		super();
+		this.instructorRepository = instructorRepository;
+	}
+
+	@Override
+	public DataResult<Instructor> getByName(String fName, String lName) {
+		Instructor instr = instructorRepository.getByName(fName, lName);
+		Instructor instrResponse = new Instructor();
+	
+		instrResponse.setInstrId(instr.getInstrId());
+		instrResponse.setInstrFirstName(instr.getInstrFirstName());
+		instrResponse.setCourseDescription(instr.getInstrLastName());
+			
+
+		return new SuccessDataResult<Course>(courseResponse,"Kurslar Listelendi");
+	}
+
+	@Override
+	public DataResult<List<Instructor>> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Result add(Instructor instr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Result delete(Instructor instr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Instructor> getByDepartment(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataResult<Instructor> update(Instructor instr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

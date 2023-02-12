@@ -1,0 +1,10 @@
+package ceng.gradProject.business.concretes;
+
+import org.springframework.stereotype.Service;
+
+import ceng.gradProject.business.abstracts.InstructorService;
+
+@Service
+public class InstructorManager implements InstructorService {
+
+}

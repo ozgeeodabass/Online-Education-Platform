@@ -1,0 +1,9 @@
+package ceng.gradProject.dataAccess.abstracts;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import ceng.gradProject.entities.concretes.Course;
+
+public interface DepartmentRepository  extends JpaRepository<Course, Integer>  {
+
+}

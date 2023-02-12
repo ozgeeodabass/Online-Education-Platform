@@ -1,0 +1,65 @@
+package ceng.gradProject.business.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ceng.gradProject.business.abstracts.SubjectService;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.core.utilities.results.Result;
+import ceng.gradProject.core.utilities.results.SuccessDataResult;
+import ceng.gradProject.core.utilities.results.SuccessResult;
+import ceng.gradProject.dataAccess.abstracts.SubjectRepository;
+import ceng.gradProject.entities.concretes.Subject;
+
+@Service
+public class SubjectManager implements SubjectService {
+
+	private SubjectRepository subjectRepository;
+	
+	@Autowired
+	public SubjectManager(SubjectRepository subjectRepository) {
+		this.subjectRepository = subjectRepository;
+	}
+
+	@Override
+	public DataResult<List<Subject>> getAll() {
+		List<Subject> subjects = subjectRepository.findAll();
+		List<Subject> subjectsResponse = new ArrayList<Subject>();
+		
+		for (Subject subject : subjects) {
+			Subject responseItem = new Subject();
+			responseItem.setSubjectId(subject.getSubjectId());
+			responseItem.setSubjectName(subject.getSubjectName());
+			subjectsResponse.add(responseItem);
+		}
+		//iş kurallarından geçerse
+		return new SuccessDataResult<List<Subject>>(subjectsResponse, "Konular Listelendi");
+	}
+
+	@Override
+	public Result add(Subject subject) {
+		Subject subjecte = new Subject();
+		subjecte.setSubjectName(subject.getSubjectName());
+		this.subjectRepository.save(subjecte);
+		return new SuccessResult("Konu Eklendi");
+		
+	}
+	
+	public Result delete(Subject subject) {
+		this.subjectRepository.delete(subject);
+		return new SuccessResult("Kurs Silindi");
+		
+	}
+	
+	public DataResult<Subject> update(Subject subject) {
+		int id = subject.getSubjectId();
+		Subject subjectExist = this.subjectRepository.findById(id).get();
+		subjectExist.setSubjectName(subject.getSubjectName());
+		
+		return new SuccessDataResult<Subject>(subject, "Kurs Güncellendi");
+	}
+
+}

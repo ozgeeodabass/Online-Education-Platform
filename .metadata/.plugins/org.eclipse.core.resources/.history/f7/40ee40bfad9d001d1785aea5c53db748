@@ -1,0 +1,26 @@
+package ceng.gradProject.entities.concretes;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "medias")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class Media {
+
+	private int mediaId;
+	
+}

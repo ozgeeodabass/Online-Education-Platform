@@ -1,0 +1,21 @@
+package ceng.gradProject.business.abstracts;
+
+import java.util.List;
+
+import ceng.gradProject.business.requests.CreateSubjectRequest;
+import ceng.gradProject.business.responses.GetAllSubjectsResponse;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.core.utilities.results.Result;
+import ceng.gradProject.entities.concretes.Course;
+import ceng.gradProject.entities.concretes.Subject;
+
+public interface SubjectService {
+	
+	DataResult<List<Subject>> getAll();
+	//List<GetAllSubjectsResponse> getAll();
+	
+	Result add(Subject subject);
+	Result delete(Subject subject);
+	
+	DataResult<Subject> update(Subject subject);
+}

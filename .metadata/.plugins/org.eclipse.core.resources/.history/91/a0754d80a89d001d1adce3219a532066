@@ -1,0 +1,102 @@
+package ceng.gradProject.business.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import ceng.gradProject.business.abstracts.UserService;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.core.utilities.results.Result;
+import ceng.gradProject.core.utilities.results.SuccessDataResult;
+import ceng.gradProject.core.utilities.results.SuccessResult;
+import ceng.gradProject.dataAccess.abstracts.UserRepository;
+import ceng.gradProject.entities.concretes.Instructor;
+import ceng.gradProject.entities.concretes.User;
+
+@Service
+public class UserManager implements UserService {
+	
+	private UserRepository userRepository;
+
+	public UserManager(UserRepository userRepository) {
+		super();
+		this.userRepository = userRepository;
+	}
+
+	@Override
+	public DataResult<User> getByName(String fName, String lName) {
+		User user = userRepository.getByName(fName, lName);
+		User userResponse = new User();
+	
+		userResponse.setUserId(user.getUserId());
+		userResponse.setUserFirstName(user.getUserFirstName());
+		userResponse.setUserLastName(user.getUserLastName());
+		userResponse.setDepartment(user.getDepartment());
+			
+
+		return new SuccessDataResult<User>(userResponse,"Kullanıcılar Listelendi");
+	}
+
+	@Override
+	public DataResult<List<User>> getAll() {
+		List<User> users = userRepository.findAll();
+		List<User> usersResponse = new ArrayList<User>();
+		
+		for (User user : users) {
+			User responseItem = new User();
+			responseItem.setUserId(user.getUserId());
+			responseItem.setUserFirstName(user.getUserFirstName());
+			responseItem.setUserLastName(user.getUserLastName());
+			
+			usersResponse.add(responseItem);
+			
+		}
+		return new SuccessDataResult<List<User>>(usersResponse,"Kullanıcılar Listelendi");
+	}
+
+	@Override
+	public Result add(User user) {
+		user.setUserFirstName(user.getUserFirstName());
+		user.setUserLastName(user.getUserLastName());
+		
+		this.userRepository.save(user);
+		return new SuccessResult("Kullanıcı Eklendi");
+	}
+
+	@Override
+	public Result delete(User user) {
+		this.userRepository.delete(user);
+		return new SuccessResult("Kullanıcı Silindi");
+	}
+
+	@Override
+	public DataResult<List<User>> getByDepartment(int id) {
+		List<User> users = userRepository.getByDepartment_DeptId(id);
+		List<User> usersResponse = new ArrayList<User>();
+		
+		for (User user : users) {
+			User responseItem = new User();
+			responseItem.setUserId(user.getUserId());
+			responseItem.setUserFirstName(user.getUserFirstName());
+			responseItem.setUserLastName(user.getUserLastName());
+			
+			usersResponse.add(responseItem);
+			
+		}
+		return new SuccessDataResult<List<User>>(usersResponse,"Kullanıcılar Listelendi");
+	}
+
+	@Override
+	public DataResult<User> update(User user) {
+		int id = user.getUserId();
+		User userExist = userRepository.findById(id).get();
+		userExist.setUserFirstName(user.getUserFirstName());
+		userExist.setUserLastName(user.getUserLastName());
+		userExist.setDepartment(user.getDepartment());
+		instructorRepository.save(instrExist);
+		
+		return new SuccessDataResult<User>(instrExist, "Eğitmen Güncellendi");
+	}
+
+}

@@ -1,0 +1,62 @@
+package ceng.gradProject.entities.concretes;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Table(name="courses")
+public class Course {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="course_id")
+	private int courseId;
+	
+	@Column(name="course_title")
+	private String courseTitle;
+	
+	@Column(name="course_description")
+	private String courseDescription;
+	
+	@ManyToOne()
+	@JoinColumn(name="subject_id", insertable = false,updatable = false)
+	private Subject subject;
+	 
+	@ManyToOne()
+	@JoinColumn(name = "instr_id", insertable = false,updatable = false)
+	private Instructor instructor;
+	
+	@JsonIgnore
+	@ManyToOne()
+	private User user;
+	
+	@JsonIgnore
+	@ManyToOne()
+	@JoinColumn(name = "dept_id", insertable=false, updatable=false)
+	private Department department;
+
+
+	//medias
+}

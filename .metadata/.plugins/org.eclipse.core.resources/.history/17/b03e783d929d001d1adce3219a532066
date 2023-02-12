@@ -1,0 +1,33 @@
+package ceng.gradProject.webApi.controllers;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ceng.gradProject.business.abstracts.DepartmentService;
+import ceng.gradProject.core.utilities.results.DataResult;
+import ceng.gradProject.entities.concretes.Department;
+
+@RestController
+@RequestMapping("/api/departments")
+public class DepartmentController {
+
+	private DepartmentService departmentService;
+
+	public DepartmentController(DepartmentService departmentService) {
+		super();
+		this.departmentService = departmentService;
+	}
+	
+	@GetMapping("/getByDepartmentName")
+	public DataResult<Department> getByDeptName(String name) {
+		return this.departmentService.getByDeptName(name);
+	}
+	
+	@GetMapping("/getAll")
+	public DataResult<List<Department>> getAll() {
+		return this.departmentService.getAll();
+	}
+}

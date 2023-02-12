@@ -1,0 +1,5 @@
+package ceng.gradProject.dataAccess.abstracts;
+
+public interface UserRepository {
+
+}

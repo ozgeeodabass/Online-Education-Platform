@@ -1,0 +1,5 @@
+package ceng.gradProject.webApi.controllers;
+
+public class InstructorController {
+
+}
